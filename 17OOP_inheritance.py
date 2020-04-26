@@ -2,8 +2,8 @@ import pygame
 import random
 from blob import Blob
 
-STARTING_BLUE_BLOBS =100
-STARTING_RED_BLOBS = 100
+STARTING_BLUE_BLOBS =10
+STARTING_RED_BLOBS = 10
 WIDTH = 800
 HEIGHT = 600
 WHITE = (255, 255, 255)
@@ -14,6 +14,18 @@ game_display = pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption('Blob World')
 clock = pygame.time.Clock()
 
+class BlueBlob(Blob):
+    # pass
+    # def __init__(self, color, x_boundary, y_boundary, size_range=(4,8), movement_range=( -1,2)):
+    #     super().__init__(color, x_boundary, y_boundary, size_range=size_range, movement_range=movement_range)
+    def __init__(self, color, x_boundary, y_boundary):
+        super().__init__(color, x_boundary, y_boundary)
+        # self.color = BLUE
+
+    def move_fast(self):
+        self.x +=random.randrange(-10,10)
+        self.y +=random.randrange(-10,10)
+
 
 def draw_environment(blob_list):
     game_display.fill(WHITE)
@@ -21,7 +33,7 @@ def draw_environment(blob_list):
         for blob_id in blob_dict:
             blob = blob_dict[blob_id]
             pygame.draw.circle(game_display, blob.color, [blob.x, blob.y], blob.size)
-            blob.move()
+            blob.move_fast()
             blob.check_bounds()
     pygame.display.update()
     # blob.move()
@@ -29,8 +41,8 @@ def draw_environment(blob_list):
 def main():
     # red_blob = Blob(RED)
     # blue_blobs = [Blob(BLUE) for i in range(STARTING_BLUE_BLOBS)]
-    blue_blobs = dict(enumerate([Blob(BLUE,WIDTH,HEIGHT) for i in range(STARTING_BLUE_BLOBS)]))
-    red_blobs = dict(enumerate([Blob(RED,WIDTH,HEIGHT) for i in range(STARTING_RED_BLOBS)]))
+    blue_blobs = dict(enumerate([BlueBlob(BLUE,WIDTH,HEIGHT) for i in range(STARTING_BLUE_BLOBS)]))
+    red_blobs = dict(enumerate([BlueBlob(RED,WIDTH,HEIGHT) for i in range(STARTING_RED_BLOBS)]))
     # print(blue_blobs)
     while True:
         # for event in pygame.event.get():
